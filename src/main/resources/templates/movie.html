@@ -1,28 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+<head>
+	<title>Film</title>
+	<link rel="stylesheet" href="/css/stile.css?version=2"/>
+	<link rel="stylesheet" href="/css/stileStelle.css?version=2"/>
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<header>
+	<div th:if="${#request.userPrincipal}">
+		<span th:text="${#request.userPrincipal.principal.username}"></span>
+		<a href="/logout">Logout</a>
+	</div>
+	<div th:unless="${#request.userPrincipal}">
+		<a href="/login">Login</a>
+	</div>
+</header>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-    <h1>Dettagli Film</h1>
-    <div th:if="${movie}">
-        <span th:text="${movie.title}">Up!</span>
-        <span th:text="'(' + ${movie.year} + ')'">2000</span>
-        <span><img width="5%" th:src=${movie.urlImage} /></span>
-    </div>
-    <div th:unless="${movie}">Non esiste</div>
-  </body>
+<div><img src="/images/logo-siw.png" width="50%"></div>
+<div th:if="${movie}">
+	<h1 th:text="${movie.titolo}">Titolo</h1>
+	<div>Anno: <span th:text="'(' + ${movie.anno} + ')'">Anno</span></div>
+	<div>
+		<img width="30%" th:src="@{${movie.ImagePath}}">
+	</div>
+	<div>
+		Recensioni Utenti
+	</div>
+
+	<div>
+		<div th:if="${movie.notizie.isEmpty()}">
+			Non sono presenti recensioni per questo film
+		</div>
+		<div>
+			<ul>
+				<li th:each="news : ${movie.notizie}">
+					<h1 th:text="${news.user.username} + ' ' + ${news.voto} + ' ' + ${news.titolo}">Username Voto Titolo</h1>
+					<h2 th:text=" '\t' + ${news.descrizione}">Descrizione</h2>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<a th:href="@{'/formNewNews/' + ${movie.id}}"> aggiungi recensione</a>
+		</div>
+	</div>
+</div>
+<div th:unless="${movie}">Non presente</div>
+</body>
 </html>

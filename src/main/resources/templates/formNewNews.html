@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/stileStelle.css?version=3"/>
+  <title>RECECENSIONE</title>
+</head>
+<body>
+<header>
+  <div th:if="${#request.userPrincipal}">
+    <span th:text="${#request.userPrincipal.principal.username}"></span>
+    <a href="/logout">Logout</a>
+  </div>
+  <div th:unless="${#request.userPrincipal}">
+    <a href="/login">Login</a>
+  </div>
+</header>
+<span>
+    <h1 th:text="'Aggiungi recensione per:' + ${movie.titolo}">
+        Aggiungi rececensione per: Titolo
+    </h1>
+</span>
+<form th:action="@{'/news'}" method="post" >
+  <input type="hidden" name="idMovie" th:value="${movie.id}">
+  <input type="hidden" name="username" th:value="${#request.userPrincipal.principal.username}">
+  <table>
+    <tr>
+      <td>Voto: </td>
+      <td>
+        <div class="rate">
+          <input required="required" type="radio" id="star5" name="rate" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1" title="text">1 star</label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Titolo: </td>
+      <td>
+        <input type="text" name="titolo" th:field="${news.titolo}">
+      </td>
+    </tr>
+    <tr>
+      <td>Commento: </td>
+      <td>
+        <input type="text" name="commento" th:field="${news.descrizione}">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="submit" >
+          Conferma
+        </button>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

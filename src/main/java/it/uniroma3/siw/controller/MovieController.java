@@ -43,24 +43,24 @@ public class MovieController {
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
 		model.addAttribute("movie", new Movie());
-		return "admin/formNewMovie.html";
+		return "admin/formNewMovie";
 	}
 
 	@GetMapping(value="/admin/formUpdateMovie/{id}")
 	public String formUpdateMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", movieRepository.findById(id).get());
-		return "admin/formUpdateMovie.html";
+		return "admin/formUpdateMovie";
 	}
 
 	@GetMapping(value="/admin/indexMovie")
 	public String indexMovie() {
-		return "admin/indexMovie.html";
+		return "admin/indexMovie";
 	}
 	
 	@GetMapping(value="/admin/manageMovies")
 	public String manageMovies(Model model) {
 		model.addAttribute("movies", this.movieRepository.findAll());
-		return "admin/manageMovies.html";
+		return "admin/manageMovies";
 	}
 	
 	@GetMapping(value="/admin/setDirectorToMovie/{directorId}/{movieId}")
@@ -72,7 +72,7 @@ public class MovieController {
 		this.movieRepository.save(movie);
 		
 		model.addAttribute("movie", movie);
-		return "admin/formUpdateMovie.html";
+		return "admin/formUpdateMovie";
 	}
 	
 	
@@ -80,7 +80,7 @@ public class MovieController {
 	public String addDirector(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("artists", artistRepository.findAll());
 		model.addAttribute("movie", movieRepository.findById(id).get());
-		return "admin/directorsToAdd.html";
+		return "admin/directorsToAdd";
 	}
 
 	@PostMapping("/admin/movie")
@@ -90,16 +90,16 @@ public class MovieController {
 		if (!bindingResult.hasErrors()) {
 			this.movieRepository.save(movie); 
 			model.addAttribute("movie", movie);
-			return "movie.html";
+			return "movie";
 		} else {
-			return "admin/formNewMovie.html"; 
+			return "admin/formNewMovie";
 		}
 	}
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
-		return "movie.html";
+		return "movie";
 	}
 
 	@GetMapping("/movie")
@@ -110,7 +110,7 @@ public class MovieController {
 
 		model.addAttribute("movies", this.movieRepository.findAll());
 		model.addAttribute("user", credentials.getUser());
-		return "movies.html";
+		return "movies";
 	}
 	
 	@GetMapping("/formSearchMovies")
@@ -121,7 +121,7 @@ public class MovieController {
 	@PostMapping("/searchMovies")
 	public String searchMovies(Model model, @RequestParam int year) {
 		model.addAttribute("movies", this.movieRepository.findByYear(year));
-		return "foundMovies.html";
+		return "foundMovies";
 	}
 	
 	@GetMapping("/admin/updateActors/{id}")
@@ -131,7 +131,7 @@ public class MovieController {
 		model.addAttribute("actorsToAdd", actorsToAdd);
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
 
-		return "admin/actorsToAdd.html";
+		return "admin/actorsToAdd";
 	}
 
 	@GetMapping(value="/admin/addActorToMovie/{actorId}/{movieId}")
@@ -147,7 +147,7 @@ public class MovieController {
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsToAdd", actorsToAdd);
 
-		return "admin/actorsToAdd.html";
+		return "admin/actorsToAdd";
 	}
 	
 	@GetMapping(value="/admin/removeActorFromMovie/{actorId}/{movieId}")
@@ -163,7 +163,7 @@ public class MovieController {
 		model.addAttribute("movie", movie);
 		model.addAttribute("actorsToAdd", actorsToAdd);
 
-		return "admin/actorsToAdd.html";
+		return "admin/actorsToAdd";
 	}
 
 	private List<Artist> actorsToAdd(Long movieId) {
