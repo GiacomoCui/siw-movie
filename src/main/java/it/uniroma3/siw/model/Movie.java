@@ -1,103 +1,58 @@
 package it.uniroma3.siw.model;
 
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import lombok.*;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.*;
 
 @Entity
+@AllArgsConstructor
+@Data
 public class Movie {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@NotBlank
+	private String titolo;
 
-    @NotBlank
-	private String title;
-    
-    @NotNull
-    @Min(1900)
-    @Max(2023)
-	private Integer year;
-    
-	private String urlImage;
-	
-	@ManyToOne
-	private Artist director;
-	
+	@NotNull
+	@Min(1900)
+	@Max(2023)
+	private Integer anno;
+
+	private String url_image;
+
+	@OneToMany
+	@JoinColumn(name = "movie_id")
+	private List<News> notizie;
+
 	@ManyToMany
-	private Set<Artist> actors;
+	private List<Artist> attori;
 
-	public Long getId() {
-		return id;
-	}
+	@ManyToOne
+	private Artist regista;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
+	public Movie(){
+		notizie = new ArrayList<>();
 	}
 
-	public Integer getYear() {
-		return year;
+	@Transient
+	public String getImagePath(){
+		if(url_image == null || id == null) return null;
+		return "/foto-movie/" + id + "/" + url_image;
 	}
 
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-	
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
-
-	public Artist getDirector() {
-		return director;
-	}
-
-	public void setDirector(Artist director) {
-		this.director = director;
-	}
-
-	public Set<Artist> getActors() {
-		return actors;
-	}
-
-	public void setActors(Set<Artist> actors) {
-		this.actors = actors;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Movie)) return false;
+		Movie movie = (Movie) o;
+		return Objects.equals(titolo, movie.titolo) && Objects.equals(anno, movie.anno);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, year);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Movie other = (Movie) obj;
-		return Objects.equals(title, other.title) && year.equals(other.year);
+		return Objects.hash(titolo, anno);
 	}
 }

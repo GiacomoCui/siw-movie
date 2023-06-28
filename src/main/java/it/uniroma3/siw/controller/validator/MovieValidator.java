@@ -1,28 +1,35 @@
 package it.uniroma3.siw.controller.validator;
 
+import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import it.uniroma3.siw.model.Movie;
-import it.uniroma3.siw.repository.MovieRepository;
 
 @Component
 public class MovieValidator implements Validator {
 	@Autowired
-	private MovieRepository movieRepository;
+	MovieRepository movieRepository;
 
 	@Override
-	public void validate(Object o, Errors errors) {
-		Movie movie = (Movie)o;
-		if (movie.getTitle()!=null && movie.getYear()!=null 
-				&& movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear())) {
-			errors.reject("movie.duplicate");
-		}
+	public boolean supports(Class<?> clazz) {
+		return Movie.class.equals(clazz);
 	}
+
 	@Override
-	public boolean supports(Class<?> aClass) {
-		return Movie.class.equals(aClass);
+	public void validate(Object target, Errors errors) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titolo", "NotBlank.movie.titolo");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "anno", "NotBlank.movie.anno");
+
+		Movie movie = (Movie) target;
+		if (movieRepository.existsByTitoloAndAnno(movie.getTitolo(), movie.getAnno()))
+			errors.reject("movie.duplicati");
+		if (movie.getAnno() < 1900)
+			errors.reject("Min.anno");
+		if (movie.getAnno() > 2023)
+			errors.reject("Max.anno");
+
 	}
 }

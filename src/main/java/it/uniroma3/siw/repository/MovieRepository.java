@@ -1,14 +1,11 @@
 package it.uniroma3.siw.repository;
 
+import it.uniroma3.siw.model.Movie;
+import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
-
-import it.uniroma3.siw.model.Movie;
-
 public interface MovieRepository extends CrudRepository<Movie, Long> {
-
-	public List<Movie> findByYear(int year);
-
-	public boolean existsByTitleAndYear(String title, int year);	
+	public List<Movie> findByAnno(Integer anno);
+	public boolean existsByTitoloAndAnno(String titolo, Integer anno);
+	public List<Movie> findAll();
 }
