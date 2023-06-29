@@ -6,13 +6,13 @@
 </head>
 
 <body>
-<div><img src="images/logo-siw.png" width="50%"/></div>
-<h1>Cerca film per anno</h1>
+
 <form th:action="@{/searchMovies}" method="post">
 	<div>Anno: <input type="text" th:value="${anno}" name="anno" />
 	</div>
 	<div><input type="submit" /></div>
 </form>
+
 </body>
 
 </html>

@@ -1,11 +1,5 @@
 /*--- INSERT MOVIE ---*/
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'Full metal jacket', 'https://pad.mymovies.it/filmclub/2006/04/020/locandina.jpg', 1987);
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'Non è un paese per vecchi', 'https://aforismi.meglio.it/img/film/Non_%C3%A8_un_paese_per_vecchi.jpg',2007);
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'The founder', 'https://pad.mymovies.it/filmclub/2016/03/235/locandina.jpg',2016);
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'Harry Potter e la pietra filosofale', 'https://pad.mymovies.it/filmclub/2001/12/001/locandina.jpg',2001);
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'Il pianeta delle scimmie', 'https://media-assets.wired.it/photos/615daad62707bc568326abfa/master/w_1600,c_limit/war-for-the-planet-of-the-apes1.jpg',2001);
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'Lo chiamavano Jeeg Robot', 'https://www.rai.it/dl/img/2016/02/23/1280x720_1456237082397_jeegrobot.jpg',2015);
-insert into movie (id, titolo, url_image, anno) values(nextval('hibernate_sequence'), 'Yesterday', 'https://citynews-today.stgy.ovh/~media/horizontal-mid/20648620006811/yesterday-film-poster-movie-universal-pictures-2.jpg',2019);
+insert into movie (id, anno, titolo) values (nextval('hibernate_sequence'), 2020, 'Er pupone');
 
 /*--- INSERT ARTIST ---*/
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Tim', 'Burton', '1958-08-25');
@@ -17,3 +11,10 @@ insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_s
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Ronald Lee', 'Ermey', '1944-03-24');
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Claudio', 'Santamaria', '1974-07-22');
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Gabriele', 'Mainetti', '1976-11-07');
+
+/*--- INSERT USERS ---*/
+insert into users(id, cognome, email, nome) values (10, 'Admin', 'admin@gmail.com', 'Admin');
+insert into credentials(id, password, ruolo, username, user_id) values (nextval('hibernate_sequence'), '$2a$10$3Cv16C474NgW.YCaw6LiWuiW.Na2PNf8gvzGpMeNmTZliKHzTFhtC', 'ADMIN', 'Admin', 10);
+
+insert into users(id, cognome, email, nome) values (12, 'Default', 'default@gmail.com', 'Default');
+insert into credentials(id, password, ruolo, username, user_id) values (nextval('hibernate_sequence'), '$2a$10$sQH25h7Q25EUcETWQWrXH.qR6FDJoE0AxJQVN0mXNAxkJAtRw1Rqu', 'DEFAULT', 'Default', 12);

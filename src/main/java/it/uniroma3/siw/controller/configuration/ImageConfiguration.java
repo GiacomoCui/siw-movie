@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/*Classe che si occupa della possibilità di ricavare l'immagine relativa ad un movie*/
 @Configuration
 public class ImageConfiguration implements WebMvcConfigurer {
     @Override

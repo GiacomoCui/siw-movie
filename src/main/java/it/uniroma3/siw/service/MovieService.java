@@ -16,6 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class MovieService {
@@ -41,7 +44,7 @@ public class MovieService {
         if(!file.isEmpty()) {
             /*Ricavo dal file di upload il suo nome e lo setto in "urlImage" del nuovo movie e lo salvo*/
             String nomeFile = StringUtils.cleanPath(file.getOriginalFilename());
-            movie.setUrl_image(nomeFile);
+            movie.setImage(nomeFile);
             Movie movieSalvato = movieRepository.save(movie);
             /*Per avere disponibile una cartella con tutte le foto dei singoli movie*/
             String uploadDir = "./foto-movie/" + movieSalvato.getId();

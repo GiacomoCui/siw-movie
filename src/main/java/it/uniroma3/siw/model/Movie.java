@@ -21,7 +21,7 @@ public class Movie {
 	@Max(2023)
 	private Integer anno;
 
-	private String url_image;
+	private String image;
 
 	@OneToMany
 	@JoinColumn(name = "movie_id")
@@ -39,8 +39,8 @@ public class Movie {
 
 	@Transient
 	public String getImagePath(){
-		if(url_image == null || id == null) return null;
-		return "/foto-movie/" + id + "/" + url_image;
+		if(image == null || id == null) return null;
+		return "/foto-movie/" + id + "/" + image;
 	}
 
 	@Override

@@ -15,11 +15,15 @@ public class Artist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String nome;
-	private String cognome;
-	private LocalDate dataNascita;
 
-	@ManyToMany(mappedBy = "attori")
+	private String nome;
+
+	private String cognome;
+
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private String dataNascita;
+
+	@ManyToMany(mappedBy = "")
 	private List<Movie> partecipazione_film;
 
 	@OneToMany(mappedBy = "regista")

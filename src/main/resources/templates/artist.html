@@ -9,7 +9,6 @@
 <body>
 <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
 <h1>Artisti</h1>
-<div th:if="${artists.isEmpty()}">Non ci sono artisti nel sistema</div>
 <ul>
 	<li th:each="artist : ${artists}">
 		<a th:href="@{'/artists' + '/' + ${artist.id}}"

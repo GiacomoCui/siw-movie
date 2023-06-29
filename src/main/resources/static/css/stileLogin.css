@@ -9,8 +9,9 @@
 
 
 header,
-section {
+section{
     overflow-x: hidden;
+
 }
 
 :root {
@@ -31,7 +32,7 @@ header a {
 }
 
 header {
-    background: transparent;
+    background: Transparent;
     padding: 1rem;
     position: fixed;
     top: 0;
@@ -39,7 +40,7 @@ header {
 }
 
 header .navbar {
-    background-color: var(--light-gray);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 1em;
 }
 
@@ -180,4 +181,58 @@ form .btn {
     color: var(--light-black);
     text-align: center;
     margin-bottom: 1.5rem;
+}
+
+.film-cards{
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+    padding: 2em;
+}
+
+.film-single-card{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: var(--light-gray);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.artist-cards{
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+    padding: 2em;
+}
+
+.artist-single-card{
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: var(--light-gray);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.film-img{
+    object-fit: cover;
+    width: 100%;
+}
+
+.dropdown-menu{
+    position: absolute;
+}
+
+.conferma-registrazione{
+    justify-content: center;
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 }
