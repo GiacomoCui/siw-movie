@@ -33,6 +33,6 @@ public class NewsController {
     public String newNews(@RequestParam("username")String username, @RequestParam("idMovie")Long idM, @ModelAttribute("news") News news, @RequestParam("rating") Integer voto, Model model){
         Movie movie = newsService.newNews(username, idM, news, voto);
         model.addAttribute("movie", movie);
-        return "movie.html";
+        return "index.html";
     }
 }

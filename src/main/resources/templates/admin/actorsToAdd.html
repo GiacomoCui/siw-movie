@@ -2,41 +2,45 @@
 <html>
 
 <head>
-	<title>Scelta attori</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <title>Scelta attori</title>
+    <link rel="stylesheet" href="/css/stile.css"/>
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1 th:text="'Attori del film ' + ${movie.title}"></h1>
-	<div th:if="${movie.actors.isEmpty()}">Non ci sono attori per questo film</div>
-	<ul>
-		<li th:each="actor : ${movie.actors}">
-			<span th:text="${actor.name}+' '+${actor.surname}"></span>
-			<a th:href="@{'/admin/removeActorFromMovie/'+ ${actor.id}+'/'+${movie.id}}">Cancella</a>
-		</li>
-	</ul>
-	<div>
-		Attori che si possono aggiungere:
-		<ul>
-			<li th:each="actor : ${actorsToAdd}">
-				<span th:text="${actor.name}+' '+${actor.surname}"></span>
-				<a th:href="@{'/admin/addActorToMovie/'+ ${actor.id}+'/'+${movie.id}}">Aggiungi</a>
-			</li>
-		</ul>
-	<div>
-	<div>
-		<a th:href="@{'/admin/formUpdateMovie/'+ ${movie.id}}"><button type="button">Fine</button></a>
-	</div>
+<header>
+    <div th:if="${#request.userPrincipal}">
+        <span th:text="${#request.userPrincipal.principal.username}"></span>
+        <a href="/logout">Logout</a>
+    </div>
+    <div th:unless="${#request.userPrincipal}">
+        <a href="/login">Login</a>
+    </div>
+</header>
+<div class="box-container">
+
+    <div class="container">
+        <!--- ATTORI FILM --->
+        <h1>Attori aggiunti:</h1>
+        <div th:if="${movieActors.isEmpty()}">Non ci sono attori inseriti</div>
+        <ul>
+            <li th:each="movieActor : ${movieActors}">
+                <a th:text="${movieActor.nome} + ' ' + ${movieActor.cognome}">Nome Cognome</a>
+                <a th:href="@{'/admin/removeActorFromMovie/' + ${movieActor.id} + '/' + ${movie.id}}">Rimuovi</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <!--- ATTORI FILM AGGIUNGIBILI--->
+        <h1>Attori non aggiunti:</h1>
+        <div th:if="${notMovieActors.isEmpty()}">Non ci sono attori da inserire</div>
+        <ul>
+            <li th:each="notMovieActor : ${notMovieActors}">
+                <a th:text="${notMovieActor.nome} + ' ' + ${notMovieActor.cognome}">Nome Cognome</a>
+                <a th:href="@{'/admin/addActorToMovie/' + ${notMovieActor.id} + '/' + ${movie.id}}">Aggiungi</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 
 </html>

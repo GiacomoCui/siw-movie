@@ -31,41 +31,33 @@
 	</div>
 
 	<!--- GESTIONE REGISTA --->
-	<span>
-        Regista:
-    </span>
-	<span th:if="${movie.regista}">
-        <span th:text="${movie.regista.nome} + ' ' + ${movie.regista.cognome}">
-            Steven Spielberg
-        </span>
-        <a th:href="@{'/admin/addDirectorToMovie' + '/' + ${movie.id}}">
-            Modifica
-        </a>
-    </span>
-	<span th:unless="${movie.regista}">
-            <a th:href="@{'/admin/addDirectorToMovie/' + ${movie.id}}">
-                Aggiungi regista
-            </a>
-    </span>
+	<div class="container">
+		<span>Regista:</span>
+		<span th:if="${movie.regista}">
+                <span th:text="${movie.regista.nome} + ' ' + ${movie.regista.cognome}"> Nome Cognome</span>
+                <a th:href="@{'/admin/addDirectorToMovie' + '/' + ${movie.id}}"> Modifica </a>
+            </span>
+		<span th:unless="${movie.regista}">
+            <a th:href="@{'/admin/addDirectorToMovie/' + ${movie.id}}"> Aggiungi regista </a>
+            </span>
+	</div>
 
 	<!--- GESTIONE ATTORI --->
-	<div></div>
-	<span>
-        Attori film:
-        <a th:href="@{'/admin/editActor/' + ${movie.id}}">
-            Modifica attori
-        </a>
-   </span>
-	<div></div>
-	<span th:if="${movie.attori.isEmpty()}">Non ci sono attori</span>
-	<div th:unless="${movie.attori.isEmpty()}">
-		<ul>
-			<li th:each="actor : ${actors}">
-				<a th:href="@{'/actor' + '/' + ${actor.id}}"
-				   th:text="${actor.nome} + ' ' + ${actor.cognome}">Nome Cognome</a>
-			</li>
-		</ul>
+	<div class="container">
+        <span> Attori film
+            <a th:href="@{'/admin/editActor/' + ${movie.id}}"> Modifica attori </a>
+        </span>
+		<div th:if="${movie.attori.isEmpty()}">Non ci sono attori</div>
+		<div th:unless="${movie.attori.isEmpty()}" class="archive-list">
+			<ul>
+				<li th:each="actor : ${actors}">
+					<a th:href="@{'/artists' + '/' + ${actor.id}}"
+					   th:text="${actor.nome} + ' ' + ${actor.cognome}">Nome Cognome</a>
+				</li>
+			</ul>
+		</div>
 	</div>
+</div>
 </div>
 <div th:unless="${movie}">
 	Non esiste

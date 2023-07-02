@@ -79,10 +79,14 @@
                         <p class="card-text">This is a wider card with supporting text below as a natural
                             lead-in to additional content. This content is a little bit longer.</p>
                         <!-- Button trigger modal -->
-                        <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#modal-film" th:attr="data-target='#modal-film'+${movie.id}">
-                            Leggi di più</button>
+                        <button class="btn btn-outline-success" type="button" data-toggle="modal"
+                                data-target="#modal-film"
+                                th:attr="data-target='#modal-film'+${movie.id}">
+                            Leggi di più
+                        </button>
+
                         <!-- Modal -->
-                        <div class="modal modal-film fade in" th:id="modal-film+${movie.id}" >
+                        <div class="modal modal-film fade in" th:id="modal-film+${movie.id}">
                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -118,6 +122,34 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        <br>
+                                        <div class="container recensioni-film">
+                                            <h6 class="text-center">Recensioni</h6>
+                                            <div th:if="${movie.recensioni.isEmpty()}">Non ci sono recensioni per il
+                                                film
+                                            </div>
+                                            <div th:each="recensione : ${movie.recensioni}">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p th:text="${recensione.user.username}"></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p th:text="${recensione.voto} + '/5'"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p><h6 th:text="${recensione.titolo}"></h6></p>
+                                                        <p th:text="${recensione.descrizione}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <a th:href="@{'/formNewNews/' + ${movie.id}}"> aggiungi recensione</a>
+                                        </div>
+                                        <br>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
                                                 Chiudi
@@ -127,6 +159,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- End modal -->
                     </div>
                 </div>
             </div>

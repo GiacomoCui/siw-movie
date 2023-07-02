@@ -2,17 +2,13 @@ package it.uniroma3.siw.service;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.*;
-import it.uniroma3.siw.repository.ArtistRepository;
 import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -109,14 +105,14 @@ public class MovieService {
 
     @Transactional
     public void addNotizia(Movie movie, News news) {
-        if (movie.getNotizie().isEmpty())
-            movie.getNotizie().add(news);
+        if (movie.getRecensioni().isEmpty())
+            movie.getRecensioni().add(news);
         else {
-            for (News notizia : movie.getNotizie()) {
+            for (News notizia : movie.getRecensioni()) {
                 if (notizia.getUser().equals(news.getUser())) {
-                    movie.getNotizie().remove(notizia);
+                    movie.getRecensioni().remove(notizia);
                 }
-                movie.getNotizie().add(news);
+                movie.getRecensioni().add(news);
             }
         }
     }

@@ -102,7 +102,7 @@ public class MovieController {
 	public String addDirectorToMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("artists", artistService.getArtists());
 		model.addAttribute("movie", movieService.getMovie(id));
-		return "admin/addDirectorToMovie.html";
+		return "admin/directorsToAdd.html";
 	}
 
 	@Transactional
@@ -123,7 +123,7 @@ public class MovieController {
 		model.addAttribute("movieActors", movie.getAttori());
 		model.addAttribute("notMovieActors", notMovieActors);
 
-		return "admin/addActorsToMovie.html";
+		return "admin/actorsToAdd.html";
 	}
 
 	@Transactional
@@ -136,7 +136,7 @@ public class MovieController {
 		model.addAttribute("movieActors", movie.getAttori());
 		model.addAttribute("notMovieActors", notMovieActors);
 
-		return "admin/addActorsToMovie.html";
+		return "admin/actorsToAdd.html";
 	}
 
 	@Transactional
@@ -149,7 +149,7 @@ public class MovieController {
 		model.addAttribute("movieActors", movie.getAttori());
 		model.addAttribute("notMovieActors", notMovieActors);
 
-		return "admin/addActorsToMovie.html";
+		return "admin/actorsToAdd.html";
 	}
 
 

@@ -24,7 +24,7 @@ public class Movie {
 
 	@OneToMany
 	@JoinColumn(name = "movie_id")
-	private List<News> notizie;
+	private List<News> recensioni;
 
 	@ManyToMany
 	private List<Artist> attori;
@@ -34,7 +34,7 @@ public class Movie {
 
 	public Movie(){
 		attori = new ArrayList<>();
-		notizie = new ArrayList<>();
+		recensioni = new ArrayList<>();
 	}
 
 	@Transient
