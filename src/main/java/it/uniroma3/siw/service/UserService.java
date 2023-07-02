@@ -1,59 +1,66 @@
 package it.uniroma3.siw.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * The UserService handles logic for Users.
- */
 @Service
 public class UserService {
-
     @Autowired
-    protected UserRepository userRepository;
+    UserRepository userRepository;
 
     /**
-     * This method retrieves a User from the DB based on its ID.
-     * @param id the id of the User to retrieve from the DB
-     * @return the retrieved User, or null if no User with the passed ID could be found in the DB
+     * Restituisce un User dal DB in corrispondenza del suo ID
+     * @param id dello User
+     * @return Il relativo User, oppure null se non trovato
      */
     @Transactional
-    public User getUser(Long id) {
+    public User getUser(Long id){
         Optional<User> result = this.userRepository.findById(id);
         return result.orElse(null);
     }
 
     /**
-     * This method saves a User in the DB.
-     * @param user the User to save into the DB
-     * @return the saved User
-     * @throws DataIntegrityViolationException if a User with the same username
-     *                              as the passed User already exists in the DB
+     * Salva un User nel DB
+     * @param user da salvare nel DB
+     * @return il salvataggio
+     * @throws DataIntegrityViolationException se esiste già uno User nel DB
      */
     @Transactional
-    public User saveUser(User user) {
+    public User saveUser(User user){
         return this.userRepository.save(user);
     }
 
     /**
-     * This method retrieves all Users from the DB.
-     * @return a List with all the retrieved Users
+     * Restituisce tutti gli User dal DB
+     * @return List di tutti gli User presenti
      */
     @Transactional
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(){
         List<User> result = new ArrayList<>();
-        Iterable<User> iterable = this.userRepository.findAll();
-        for(User user : iterable)
+        Iterable<User> users = this.userRepository.findAll();
+        for(User user: users)
             result.add(user);
         return result;
+    }
+
+    @Transactional
+    public UserDetails getUserDetails() {
+        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    @Transactional
+    public void setUser(Credentials credentials, User user){
+        credentials.setUser(user);
     }
 }

@@ -64,7 +64,7 @@
 
 <!-- Main -->
 
-<div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
+<div th:if="${movies == null}">Non ci sono film nel sistema</div>
 <div class="card-group film-cards">
     <div th:each="movie : ${movies}">
         <div class="card mb-3 film-single-card" style="max-width: 540px;">
@@ -78,15 +78,61 @@
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${movie.anno}">Card subtitle</h6>
                         <p class="card-text">This is a wider card with supporting text below as a natural
                             lead-in to additional content. This content is a little bit longer.</p>
-                        <a class="btn btn-info" th:href="@{'/movies' + '/' + ${movie.id}}">Leggi di piu </a>
-
+                        <!-- Button trigger modal -->
+                        <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#modal-film" th:attr="data-target='#modal-film'+${movie.id}">
+                            Leggi di più</button>
+                        <!-- Modal -->
+                        <div class="modal modal-film fade in" th:id="modal-film+${movie.id}" >
+                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title display-4 text-center" id="exampleModalScrollableTitle"
+                                            th:text="${movie.titolo}">Modal title</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 th:text="${movie.anno}"></h6>
+                                        <br>
+                                        <div class="descrizione-film">
+                                            Voluptatum odio similique congue libero vidisse consul faucibus metus
+                                            nominavi. Constituto ad ocurreret equidem splendide aptent gloriatur aeque
+                                            gravida maecenas.
+                                        </div>
+                                        <br>
+                                        <div class="row text-center">
+                                            <div class="col-md-6">
+                                                <h6>Regia</h6>
+                                                <div th:if="${movie.regista == null}">Non c'e' un regista per il film
+                                                </div>
+                                                <p th:text="${movie.regista}"></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Cast</h6>
+                                                <div th:if="${movie.attori.isEmpty()}">Non ci sono artisti nel film
+                                                </div>
+                                                <ul>
+                                                    <li th:each="attore : ${movie.attori}">
+                                                        <a th:href="@{'/artists' + '/' + ${attore.id}}"
+                                                           th:text="${attore.nome} + ' ' + ${attore.cognome}">Nome
+                                                            Cognome</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                                Chiudi
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

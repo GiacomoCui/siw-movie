@@ -8,4 +8,6 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 	public List<Movie> findByAnno(Integer anno);
 	public boolean existsByTitoloAndAnno(String titolo, Integer anno);
 	public List<Movie> findAll();
+
+	boolean existsByTitolo(String titolo);
 }

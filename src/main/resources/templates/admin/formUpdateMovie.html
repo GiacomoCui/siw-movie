@@ -1,50 +1,79 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<title>
-		New Movie
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<title>Film</title>
+	<link rel="stylesheet" href="/css/stile.css?version=2"/>
 </head>
 
 <body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
+<header>
+	<div th:if="${#request.userPrincipal}">
+		<span th:text="${#request.userPrincipal.principal.username}"></span>
+		<a href="/logout">Logout</a>
+	</div>
+	<div th:unless="${#request.userPrincipal}">
+		<a href="/login">Login</a>
+	</div>
+</header>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
-	<h1>Aggiorna film</h1>
-	<div th:if="${movie}">
-		<div>
-			<span th:text="${movie.title}">Up!</span>
-			<span th:text="'(' + ${movie.year} + ')'">2000</span>
-		</div>
-		<div th:if="${movie.director}">
-			<span>Regista: </span><span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven
-				Spielberg</span>
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a></span>
-		</div>
-		<div th:unless="${movie.director}">
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
-		</div>
 
-		<div>
-			<span>Attori: </span>
-			<div th:each="actor: ${movie.actors}">
-				<span th:text="${actor.name} + ' ' + ${actor.surname}">Al Pacino</span>
-			</div>
-			<a th:href="@{'/admin/updateActors/' + ${movie.id}}">
-				<button type="button">Modifica</button>
-			</a>
-		</div>
-		<div th:unless="${movie}">Film non esistente</div>
+
+<div><img src="/images/logo-siw.png" width="50%"></a></div>
+<div th:if="${movie}">
+	<h1>
+		Aggiorna film
+	</h1>
+	<div th:text="${movie.titolo} + ' (' + ${movie.anno} + ')'">
+		Dettagli Film
+	</div>
+	<div id="immagini-film-update">
+		<input type="file" accept="image/png, image/jpeg" placeholder="Immagini del film" name="files" multiple="multiple"/>
+	</div>
+
+	<!--- GESTIONE REGISTA --->
+	<span>
+        Regista:
+    </span>
+	<span th:if="${movie.regista}">
+        <span th:text="${movie.regista.nome} + ' ' + ${movie.regista.cognome}">
+            Steven Spielberg
+        </span>
+        <a th:href="@{'/admin/addDirectorToMovie' + '/' + ${movie.id}}">
+            Modifica
+        </a>
+    </span>
+	<span th:unless="${movie.regista}">
+            <a th:href="@{'/admin/addDirectorToMovie/' + ${movie.id}}">
+                Aggiungi regista
+            </a>
+    </span>
+
+	<!--- GESTIONE ATTORI --->
+	<div></div>
+	<span>
+        Attori film:
+        <a th:href="@{'/admin/editActor/' + ${movie.id}}">
+            Modifica attori
+        </a>
+   </span>
+	<div></div>
+	<span th:if="${movie.attori.isEmpty()}">Non ci sono attori</span>
+	<div th:unless="${movie.attori.isEmpty()}">
+		<ul>
+			<li th:each="actor : ${actors}">
+				<a th:href="@{'/actor' + '/' + ${actor.id}}"
+				   th:text="${actor.nome} + ' ' + ${actor.cognome}">Nome Cognome</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div th:unless="${movie}">
+	Non esiste
+</div>
+<div>
+	<a href="#" onclick="javascript:history.back(); return false;">
+		indietro
+	</a>
+</div>
 </body>
-
 </html>

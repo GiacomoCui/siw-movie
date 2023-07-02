@@ -5,6 +5,7 @@ import it.uniroma3.siw.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
@@ -20,16 +21,11 @@ public class MovieValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titolo", "NotBlank.movie.titolo");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "anno", "NotBlank.movie.anno");
-
+		ValidationUtils.rejectIfEmpty(errors, "titolo", "NotBlank.movie.titolo");
+		ValidationUtils.rejectIfEmpty(errors, "anno", "NotBlank.movie.anno");
 		Movie movie = (Movie) target;
-		if (movieRepository.existsByTitoloAndAnno(movie.getTitolo(), movie.getAnno()))
+		if (movieRepository.existsByTitolo(movie.getTitolo())) {
 			errors.reject("movie.duplicati");
-		if (movie.getAnno() < 1900)
-			errors.reject("Min.anno");
-		if (movie.getAnno() > 2023)
-			errors.reject("Max.anno");
-
+		}
 	}
 }

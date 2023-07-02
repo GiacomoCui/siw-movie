@@ -59,18 +59,18 @@
 <!-- form -->
 
 <div class="panel">
-	<form th:action="@{/admin/movie}" method="POST" th:object="${movie}">
+	<form th:action="@{/admin/newMovie}" method="POST" th:object="${movie}" enctype="multipart/form-data">
 
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>
 
 		<div class="form-field">
-			<input name="nome" type="text" th:field="${movie.titolo}" placeholder="Nome Attore" required/>
+			<input name="nome" type="text" th:field="${movie.titolo}" placeholder="Nome Film" required/>
 		</div>
 
 		<div class="form-field">
-			<input name="password" type="date" placeholder="Anno di nascita" required th:field="${movie.anno}"/>
+			<input name="dataUscita" type="number" placeholder="Anno di uscita" required th:field="${movie.anno}"/>
 		</div>
 
 		<div class="form-field">

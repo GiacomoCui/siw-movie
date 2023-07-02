@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,17 @@ import javax.validation.Valid;
 public class AuthenticationController {
 	@Autowired
 	private CredentialsService credentialsService;
+	@Autowired
+	private UserService userService;
+
+	@GetMapping("admin/indexAdmin.html")
+	public String adminIndex(Model model){
+		return "admin/indexAdmin.html";
+	}
+	@GetMapping("admin/index.html")
+	public String defaultIndex(Model model){
+		return "index.html";
+	}
 
 	@GetMapping(value = "/register")
 	public String showRegisterForm (Model model) {
@@ -38,27 +50,26 @@ public class AuthenticationController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
-			return "index.html";
+			return "formLogin.html";
 		}
 		else {
-			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = userService.getUserDetails();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials.getRuolo().equals(Credentials.RUOLO_ADMIN)) {
-				return "admin/indexAdmin.html";
+				return adminIndex(model);
 			}
 		}
-		return "index.html";
+		return "formLogin.html";
 	}
 
 	@GetMapping(value = "/success")
 	public String defaultAfterLogin(Model model) {
-
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = userService.getUserDetails();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		if (credentials.getRuolo().equals(Credentials.RUOLO_ADMIN)) {
-			return "admin/indexAdmin.html";
+			return adminIndex(model);
 		}
-		return "index.html";
+		return defaultIndex(model);
 	}
 
 	@PostMapping(value = { "/register" })
@@ -70,7 +81,7 @@ public class AuthenticationController {
 
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
 		if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
-			credentials.setUser(user);
+			userService.setUser(credentials, user);
 			credentialsService.saveCredentials(credentials);
 			model.addAttribute("user", user);
 			return "registrationSuccessful";

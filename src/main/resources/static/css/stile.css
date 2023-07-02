@@ -70,21 +70,20 @@ header .navbar-brand {
 }
 
 header .row .col-md-7 {
-    padding: 20.2vmin 1vmin;
+    padding: 18.2vmin 1vmin;
     padding-right: 15.5vmin;
     --animate-repeat: 1;
 
 }
 
 header .row .col-md-5 {
-    padding: 20.2vmin 1vmin;
+    padding: 20.2vmin 3vmin;
     padding-bottom: 30vmin;
     --animate-repeat: 1;
 }
 
 header .row .col-md-5 img {
     width: 150%;
-    object-fit: fill;
 }
 
 header .row .col-md-7 h1 {

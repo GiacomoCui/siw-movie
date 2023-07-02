@@ -20,7 +20,6 @@ public class Movie {
 	@Min(1900)
 	@Max(2023)
 	private Integer anno;
-
 	private String image;
 
 	@OneToMany
@@ -34,6 +33,7 @@ public class Movie {
 	private Artist regista;
 
 	public Movie(){
+		attori = new ArrayList<>();
 		notizie = new ArrayList<>();
 	}
 

@@ -17,13 +17,13 @@ public class Credentials {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
 	private String username;
 	private String password;
 	private String ruolo;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
-	@OneToMany
-	private List<News> recensioni;
+
+	@OneToOne
+	private News recensione;
 }

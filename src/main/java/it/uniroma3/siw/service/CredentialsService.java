@@ -1,6 +1,8 @@
 package it.uniroma3.siw.service;
 
 import java.util.Optional;
+
+import it.uniroma3.siw.model.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,11 @@ public class CredentialsService {
 	public Credentials getCredentials(String username) {
 		Optional<Credentials> result = this.credentialsRepository.findByUsername(username);
 		return result.orElse(null);
+	}
+
+	@Transactional
+	public void addNews(Credentials user, News news){
+		user.setRecensione(news);
 	}
 
 	@Transactional

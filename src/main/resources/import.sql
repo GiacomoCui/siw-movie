@@ -10,7 +10,7 @@ insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_s
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Stanley', 'Kubrick', '1928-07-26');
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Ronald Lee', 'Ermey', '1944-03-24');
 insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Claudio', 'Santamaria', '1974-07-22');
-insert into artist (id, nome, cognome, data_nascita) values(nextval('hibernate_sequence'), 'Gabriele', 'Mainetti', '1976-11-07');
+insert into artist (id, nome, cognome, data_nascita, data_morte) values(nextval('hibernate_sequence'), 'Gabriele', 'Mainetti', '1976-11-07', '2020-03-21');
 
 /*--- INSERT USERS ---*/
 insert into users(id, cognome, email, nome) values (10, 'Admin', 'admin@gmail.com', 'Admin');
