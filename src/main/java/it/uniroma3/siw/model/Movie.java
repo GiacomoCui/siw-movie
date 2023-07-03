@@ -20,6 +20,7 @@ public class Movie {
 	@Min(1900)
 	@Max(2023)
 	private Integer anno;
+
 	private String image;
 
 	@OneToMany

@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -108,12 +109,14 @@ public class MovieService {
         if (movie.getRecensioni().isEmpty())
             movie.getRecensioni().add(news);
         else {
-            for (News notizia : movie.getRecensioni()) {
+            Iterator<News> iterator = movie.getRecensioni().iterator();
+            while (iterator.hasNext()) {
+                News notizia = iterator.next();
                 if (notizia.getUser().equals(news.getUser())) {
-                    movie.getRecensioni().remove(notizia);
+                    iterator.remove();
                 }
-                movie.getRecensioni().add(news);
             }
+            movie.getRecensioni().add(news);
         }
     }
 }

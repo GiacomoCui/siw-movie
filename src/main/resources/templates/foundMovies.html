@@ -63,7 +63,7 @@
         <div class="col-md-8">
             <form class="search" method="post" th:action="@{/searchMovies}">
                 <i class="fa fa-search"></i>
-                <input type="text" class="form-control" th:value="${anno}" name="anno"
+                <input type="number" class="form-control" th:value="${anno}" name="anno"
                        placeholder="Anno di uscita del film...">
                 <button class="btn btn-primary" type="submit">Cerca</button>
             </form>

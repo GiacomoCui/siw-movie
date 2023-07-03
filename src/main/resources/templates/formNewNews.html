@@ -71,7 +71,7 @@
     </div>
     <form th:action="@{'/news'}" method="post">
         <input type="hidden" name="idMovie" th:value="${movie.id}">
-        <input type="hidden" name="username" th:value="${#request.userPrincipal.principal.username}">
+        <input type="hidden" name="username" th:value="${userDetails.username}">
         <fieldset class="rating" th:field="news.voto">
             <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5"
                                                                            title="Awesome - 5 stars"></label>

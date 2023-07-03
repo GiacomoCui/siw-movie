@@ -25,6 +25,8 @@ public class Artist {
 	private String dataNascita;
 	private String dataMorte;
 
+	private String image;
+
 	@ManyToMany(mappedBy = "attori")
 	private List<Movie> partecipazione_film;
 
@@ -49,4 +51,11 @@ public class Artist {
 		return Objects.hash(nome, cognome);
 	}
 
+	@Transient
+	public String getImagePath(){
+		if(image == null || id == null) return null;
+		return "/foto-movie/" + id + "/" + image;
+	}
+
 }
+
