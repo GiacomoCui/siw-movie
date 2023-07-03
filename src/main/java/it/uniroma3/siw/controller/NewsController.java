@@ -16,23 +16,22 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class NewsController {
     @Autowired
-    private MovieRepository movieRepository;
-    @Autowired
     private NewsService newsService;
     @Autowired
     private MovieService movieService;
 
     @GetMapping("/formNewNews/{idMovie}")
-    public String formNewNews(@PathVariable("idMovie") Long idM, Model model){
+    public String formNewNews(@PathVariable("idMovie") Long idM, Model model) {
         model.addAttribute("movie", movieService.getMovie(idM));
         model.addAttribute("news", new News());
-        return "formNewNews.html";
+        return "formNewNews";
     }
 
     @PostMapping("/news")
-    public String newNews(@RequestParam("username")String username, @RequestParam("idMovie")Long idM, @ModelAttribute("news") News news, @RequestParam("rating") Integer voto, Model model){
-        Movie movie = newsService.newNews(username, idM, news, voto);
+    public String newNews(@RequestParam("username") String username, @RequestParam("idMovie") Long idM, @ModelAttribute("news") News news, @RequestParam("rating") Integer voto, @RequestParam("descrizione") String descrizione, Model model) {
+        Movie movie = newsService.newNews(username, idM, news, voto, descrizione);
         model.addAttribute("movie", movie);
-        return "index.html";
+        model.addAttribute("movies", movieService.getMovies());
+        return "movies";
     }
 }

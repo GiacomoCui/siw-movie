@@ -2,43 +2,128 @@
 <html>
 
 <head>
-    <title>Scelta attori</title>
-    <link rel="stylesheet" href="/css/stile.css"/>
+    <link href="/css/stileLogin.css?" rel="stylesheet"/>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2c740d50fa.js" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Lato:wght@300&family=Merriweather:ital,wght@1,300&family=Patua+One&family=Rubik&display=swap"
+          rel="stylesheet">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>SiwMovie - Modifica Attori</title>
 </head>
 
 <body>
-<header>
-    <div th:if="${#request.userPrincipal}">
-        <span th:text="${#request.userPrincipal.principal.username}"></span>
-        <a href="/logout">Logout</a>
-    </div>
-    <div th:unless="${#request.userPrincipal}">
-        <a href="/login">Login</a>
-    </div>
-</header>
-<div class="box-container">
 
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <img class="navbar-brand img-fluid" src="/images/logo-siw.png" href="/" width="15%"/>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="mr-auto"></div>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="/movies">Film</a>
+                <a class="nav-item nav-link" href="/artists">Artisti</a>
+                <div th:if="${#request.userPrincipal}">
+                    <div class="nav-item  log-btn">
+                        <button class="btn btn-danger my-2 my-sm-0" type="submit"><a href="/logout">Logout</a>
+                        </button>
+                    </div>
+                </div>
+                <div th:unless="${#request.userPrincipal}">
+                    <div class="nav-item log-btn">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/login">Login</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-box panel">
+    <a href="/admin/manageMovies"><i class="fa-solid fa-arrow-left fa-2xl"></i></a>
+    <br>
     <div class="container">
         <!--- ATTORI FILM --->
-        <h1>Attori aggiunti:</h1>
+        <h1 class="text-center">Attori nel film</h1><br>
         <div th:if="${movieActors.isEmpty()}">Non ci sono attori inseriti</div>
-        <ul>
-            <li th:each="movieActor : ${movieActors}">
-                <a th:text="${movieActor.nome} + ' ' + ${movieActor.cognome}">Nome Cognome</a>
-                <a th:href="@{'/admin/removeActorFromMovie/' + ${movieActor.id} + '/' + ${movie.id}}">Rimuovi</a>
-            </li>
-        </ul>
+        <div class="table-responsive w-100 d-block d-md-table">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cognome</th>
+                    <th scope="col">Modifica</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="movieActor : ${movieActors}">
+                    <tr>
+                        <th scope="row" th:text="${movieActor.id}">id</th>
+                        <td th:text="${movieActor.nome}">Mario</td>
+                        <td th:text="${movieActor.cognome}">Rossi</td>
+                        <td>
+                            <a th:href="@{'/admin/removeActorFromMovie/' + ${movieActor.id} + '/' + ${movie.id}}">
+                                <i class="fa-solid fa-square-minus fa-xl"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <div style="padding-top: 2em; padding-bottom: 2em"></div>
     <div class="container">
         <!--- ATTORI FILM AGGIUNGIBILI--->
-        <h1>Attori non aggiunti:</h1>
+        <h1 class="text-center">Attori aggiungibili</h1>
+        <br>
         <div th:if="${notMovieActors.isEmpty()}">Non ci sono attori da inserire</div>
-        <ul>
-            <li th:each="notMovieActor : ${notMovieActors}">
-                <a th:text="${notMovieActor.nome} + ' ' + ${notMovieActor.cognome}">Nome Cognome</a>
-                <a th:href="@{'/admin/addActorToMovie/' + ${notMovieActor.id} + '/' + ${movie.id}}">Aggiungi</a>
-            </li>
-        </ul>
+        <div class="table-responsive w-100 d-block d-md-table">
+            <table class="table table-striped justify-content-center">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cognome</th>
+                    <th scope="col">Modifica</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="notMovieActor : ${notMovieActors}">
+                    <tr>
+                        <th scope="row" th:text="${notMovieActor.id}">id</th>
+                        <td th:text="${notMovieActor.nome}">Mario</td>
+                        <td th:text="${notMovieActor.cognome}">Rossi</td>
+                        <td>
+                            <a th:href="@{'/admin/addActorToMovie/' + ${notMovieActor.id} + '/' + ${movie.id}}">
+                                <i class="fa-solid fa-square-plus fa-xl" style="align-content: center"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>

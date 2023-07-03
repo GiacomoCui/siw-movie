@@ -107,7 +107,10 @@
                                                 <h6>Regia</h6>
                                                 <div th:if="${movie.regista == null}">Non c'e' un regista per il film
                                                 </div>
-                                                <p th:text="${movie.regista}"></p>
+                                                <div th:unless="${movie.regista == null}">
+                                                    <p th:text="${movie.regista.nome} + ' ' + ${movie.regista.cognome}">
+                                                        Nome Cognome</p>
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <h6>Cast</h6>
@@ -115,9 +118,8 @@
                                                 </div>
                                                 <ul>
                                                     <li th:each="attore : ${movie.attori}">
-                                                        <a th:href="@{'/artists' + '/' + ${attore.id}}"
-                                                           th:text="${attore.nome} + ' ' + ${attore.cognome}">Nome
-                                                            Cognome</a>
+                                                        <p th:text="${attore.nome} + ' ' + ${attore.cognome}">Nome
+                                                            Cognome</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -125,42 +127,45 @@
                                         <br>
                                         <div class="container recensioni-film">
                                             <h6 class="text-center">Recensioni</h6>
+                                            <br>
                                             <div th:if="${movie.recensioni.isEmpty()}">Non ci sono recensioni per il
                                                 film
                                             </div>
                                             <div th:each="recensione : ${movie.recensioni}">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <p th:text="${recensione.user.username}"></p>
+                                                <div class="panel-news">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p class="news-user" th:text="${recensione.user.username}"></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p th:text="${recensione.voto} + '/5'"></p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <p th:text="${recensione.voto} + '/5'"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p><h6 th:text="${recensione.titolo}"></h6></p>
-                                                        <p th:text="${recensione.descrizione}"></p>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <p class="news-title" th:text="${recensione.titolo}"></p>
+                                                            <p class="news-text" th:text="${recensione.descrizione}"></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <br>
-                                        <div>
-                                            <a th:href="@{'/formNewNews/' + ${movie.id}}"> aggiungi recensione</a>
-                                        </div>
-                                        <br>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
-                                                Chiudi
-                                            </button>
+                                            <br>
+                                            <div>
+                                                <a th:href="@{'/formNewNews/' + ${movie.id}}"> aggiungi recensione</a>
+                                            </div>
+                                            <br>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        data-dismiss="modal">
+                                                    Chiudi
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- End modal -->
                         </div>
-
-                        <!-- End modal -->
                     </div>
                 </div>
             </div>

@@ -48,9 +48,4 @@ public class ArtistController {
 		}
 	}
 
-	@GetMapping("/artists/{idArtist}")
-	public String getArtist(@PathVariable("idArtist")Long idA, Model model){
-		model.addAttribute("artist", artistService.getArtist(idA));
-		return "artist.html";
-	}
 }

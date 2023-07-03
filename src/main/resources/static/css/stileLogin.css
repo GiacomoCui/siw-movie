@@ -110,17 +110,7 @@ form .form-field::before {
     background-size: cover;
     background-repeat: no-repeat;
 }
-form .form-field:nth-child(2)::before {
-    background-image: url(../images/user-icon.png);
-    width: 20px;
-    height: 20px;
-    top: 15px;
-}
-form .form-field:nth-child(3)::before {
-    background-image: url(../images/lock-icon.png);
-    width: 16px;
-    height: 16px;
-}
+
 form .form-field {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -143,7 +133,7 @@ form input {
     border: none;
     display: block;
     padding: 0.9rem 0.7rem;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     font-size: 17px;
     color: #4A4A4A;
     text-indent: 40px;
@@ -159,7 +149,7 @@ form .btn {
     background-color: #47AB11;
     color: #fff;
     border-radius: 4px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     font-size: 17px;
 }
 
@@ -183,6 +173,18 @@ form .btn {
     margin-bottom: 1.5rem;
 }
 
+.panel-news {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px 20px 10px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    z-index:1;
+}
+
 .film-cards{
     justify-content: center;
     align-items: center;
@@ -199,7 +201,33 @@ form .btn {
     padding: 1em;
     border-radius: 1em;
     background-color: var(--light-gray);
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.news-user{
+    font-family: var(--Lato);
+    font-size: 15;
+    font-weight: bold;
+    color: var(--light-black);
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.news-title{
+    font-family: var(--Merriweather);
+    font-size: 15;
+    color: var(--light-black);
+    text-align: left;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.news-text{
+    font-family: var(--Lato);
+    font-size: 12;
+    color: var(--light-black);
+    text-align: left;
+    margin-bottom: 1rem;
 }
 
 .artist-cards{
@@ -218,7 +246,7 @@ form .btn {
     padding: 1em;
     border-radius: 1em;
     background-color: var(--light-gray);
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
 
 .film-img{
@@ -234,5 +262,22 @@ form .btn {
     justify-content: center;
     padding: 2em;
     border-radius: 1em;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
+
+.fa-solid{
+    color: var(--light-black);
+}
+
+.fa-square-minus:hover{
+    color: lightcoral;
+}
+
+.fa-square-plus:hover{
+    color: lightgreen;
+}
+
+.fa-camera-movie:hover{
+    color: aquamarine;
+}
+

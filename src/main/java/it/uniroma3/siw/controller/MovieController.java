@@ -29,7 +29,7 @@ public class MovieController {
 	@Autowired
 	private ArtistService artistService;
 
-	@GetMapping("/index.html")
+	@GetMapping("/index")
 	public String index() {
 		return "index.html";
 	}
@@ -46,17 +46,12 @@ public class MovieController {
 		if (!bindingResult.hasErrors()) {
 			this.movieService.saveNewMovie(file, movie);
 			model.addAttribute("movie", movie);
-			return "index.html";
+			model.addAttribute("movies", movieService.getMovies());
+			return "movies.html";
 		} else {
 			System.out.println(bindingResult.getAllErrors().get(0));
 			return "admin/formNewMovie.html";
 		}
-	}
-
-	@GetMapping("/movies/{id}")
-	public String getMovie(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", movieService.getMovie(id));
-		return "movie.html";
 	}
 
 	@GetMapping("/movies")
@@ -111,7 +106,8 @@ public class MovieController {
 		Movie movie = movieService.setDirectorToMovie(idA, idM);
 		model.addAttribute("movie", movie);
 		model.addAttribute("artist", movie.getRegista());
-		return "admin/formUpdateMovie.html";
+		model.addAttribute("movies", movieService.getMovies());
+		return "admin/manageMovies";
 	}
 
 	@GetMapping("/admin/editActor/{id}")

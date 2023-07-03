@@ -18,10 +18,11 @@ public class NewsService {
     CredentialsService credentialsService;
 
     @Transactional
-    public Movie newNews(String username, Long idM, News news, Integer voto){
+    public Movie newNews(String username, Long idM, News news, Integer voto, String descrizione){
         Movie movie = movieService.getMovie(idM);
         Credentials user = credentialsService.getCredentials(username);
         news.setVoto(voto);
+        news.setDescrizione(descrizione);
         news.setUser(user);
         saveNews(news);
         credentialsService.addNews(user, news);
